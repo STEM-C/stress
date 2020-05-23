@@ -1,5 +1,5 @@
 const axios = require('axios')
-const path = 'http://stem-c-staging.herokuapp.com/activities'
+const path = 'http://stem-c-staging.herokuapp.com'
 let LOADS = [25, 50, 75, 100]
 
 axios.interceptors.request.use((config) => {
@@ -15,6 +15,8 @@ axios.interceptors.response.use((response) => {
     return response
 })
 
+const maxResponse = (curr, last) => curr > last ? curr : last
+const sumResponse = (curr, last) => curr + last
 const sendLoad = () => {
 
     let load = LOADS.shift()
@@ -31,8 +33,5 @@ const sendLoad = () => {
         if (LOADS.length) sendLoad()
     })
 }
-
-const maxResponse = (curr, last) => curr > last ? curr : last
-const sumResponse = (curr, last) => curr + last
 
 sendLoad()
