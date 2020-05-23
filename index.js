@@ -1,8 +1,10 @@
 const axios = require('axios')
+const path = 'http://stem-c-staging.herokuapp.com/activities'
+let LOADS = [25, 50, 75, 100]
 
 axios.interceptors.request.use((config) => {
     
-    config.metadata = { start: Date.now(), }
+    config.metadata = { start: Date.now() }
     return config
 })
 
@@ -13,15 +15,24 @@ axios.interceptors.response.use((response) => {
     return response
 })
 
-let LOAD = 100
+const sendLoad = () => {
 
-for(let i = 0; i < LOAD; i++) {
-    let start = Date.now()
-    axios.get('https://stem-c-staging.herokuapp.com').then(resp => {
-        console.log(`${resp.duration}ms - ${i}`)
+    let load = LOADS.shift()
+    console.log(`--- ${load} ---`)
 
-        axios.get('https://stem-c-staging.heroku.com/activities').then(resps => {
-            console.log(`- ${resps.duration} - ${i}`)
-        })
+    let reqs = []
+    for(let i = 0; i < load; i++) reqs.push(axios.get(path).then(resp => resp.duration))
+
+    Promise.all(reqs).then(res => {
+        // console.log(`Resps: ${res}`)
+        console.log(`Max Response: ${res.reduce(maxResponse, 0)}`)
+        console.log(`Avg Response: ${res.reduce(sumResponse, 0)/load} \n`)
+
+        if (LOADS.length) sendLoad()
     })
 }
+
+const maxResponse = (curr, last) => curr > last ? curr : last
+const sumResponse = (curr, last) => curr + last
+
+sendLoad()
