@@ -1,0 +1,15 @@
+Host, Path, Load, Avg, Max 
+http://stem-c-staging.herokuapp.com, /,25,252,316
+http://stem-c-staging.herokuapp.com, /,50,175,210
+http://stem-c-staging.herokuapp.com, /,75,254,350
+http://stem-c-staging.herokuapp.com, /,100,288,476
+http://stem-c-staging.herokuapp.com, /,250,623,1710
+http://stem-c-staging.herokuapp.com, /,500,985,2808
+http://stem-c-staging.herokuapp.com, /,1000,2199,7283
+http://stem-c-staging.herokuapp.com, /activities,25,447,465
+http://stem-c-staging.herokuapp.com, /activities,50,517,563
+http://stem-c-staging.herokuapp.com, /activities,75,813,882
+http://stem-c-staging.herokuapp.com, /activities,100,1121,1386
+http://stem-c-staging.herokuapp.com, /activities,250,1629,4289
+http://stem-c-staging.herokuapp.com, /activities,500,3078,5304
+http://stem-c-staging.herokuapp.com, /activities,1000,7697,8814
